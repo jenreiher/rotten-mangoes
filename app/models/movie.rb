@@ -1,5 +1,7 @@
 class Movie < ActiveRecord::Base
 
+  mount_uploader :poster_image, PosterImageUploader
+
   has_many :reviews
 
   validates :title,
@@ -14,7 +16,7 @@ class Movie < ActiveRecord::Base
   validates :description,
     presence: true
 
-  validates :poster_image_url,
+  validates :poster_image,
     presence: true
 
   validates :release_date, 
