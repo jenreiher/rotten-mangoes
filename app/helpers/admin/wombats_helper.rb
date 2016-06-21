@@ -1,0 +1,2 @@
+module Admin::WombatsHelper
+end
