@@ -26,7 +26,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Sassy CSS
 gem 'bootstrap-sass', '~> 3.3.6'
+
+# File uploading
+gem 'rmagick'
+gem 'carrierwave'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

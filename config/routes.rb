@@ -20,25 +20,6 @@ Rails.application.routes.draw do
   get 'users/delete'
   end
 
-  namespace :admin do
-  get 'wombats/index'
-  end
-
-  namespace :admin do
-  get 'wombats/show'
-  end
-
-  namespace :admin do
-  get 'wombats/new'
-  end
-
-  namespace :admin do
-  get 'wombats/edit'
-  end
-
-  namespace :admin do
-  get 'wombats/delete'
-  end
 
   resources :movies do
     resources :reviews, only: [:new, :create]
