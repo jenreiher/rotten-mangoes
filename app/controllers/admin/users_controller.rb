@@ -16,16 +16,6 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-# {"utf8"=>"✓",
-#  "_method"=>"put",
-#  "authenticity_token"=>"g2qikCTml6hkl9/96cASIuPUxwW644fXcWq1Ya2xLNWSfhUp1UfhiaTumhEX2RQjq8VGN1xkJV7FTRi0de5Fug==",
-#  "user"=>{"email"=>"newone@test.com",
-#  "firstname"=>"New",
-#  "lastname"=>"One",
-#  "admin"=>"0"},
-#  "commit"=>"Edit User",
-#  "id"=>"9"}
-
     if @user.update_attributes(user_params)
       redirect_to admin_users_path
     else
@@ -37,7 +27,10 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def delete
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to admin_users_path
   end
 
   private
