@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20160621230118) do
+=======
 ActiveRecord::Schema.define(version: 20160621193851) do
+>>>>>>> master
 
   create_table "movies", force: :cascade do |t|
     t.string   "title"
@@ -44,6 +48,7 @@ ActiveRecord::Schema.define(version: 20160621193851) do
     t.datetime "updated_at",      null: false
     t.string   "firstname"
     t.string   "lastname"
+    t.boolean  "admin"
   end
 
 end

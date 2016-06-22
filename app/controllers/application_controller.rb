@@ -12,10 +12,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def restrict_non_admins
+    unless admin?
+      flash[:alert] = "You must be loggen in asan admin to access this area."
+      redirect_to movies_path
+    end
+  end
+
+  def admin?
+    current_user && current_user.admin == true
+  end
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
   helper_method :current_user
+  helper_method :admin?
 
 end
