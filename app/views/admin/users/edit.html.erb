@@ -1,4 +1,5 @@
 <h1>Edit User</h1>
+
 <%= form_for @user, url: admin_user_path(@user), html: { method: :put } do |f| %>
     <% if @user.errors.any? %>
     <div>

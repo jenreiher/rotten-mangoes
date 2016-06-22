@@ -26,12 +26,7 @@ class Admin::UsersController < ApplicationController
 #  "commit"=>"Edit User",
 #  "id"=>"9"}
 
-    if @user.update_attributes(
-      email: params[:user][:email],
-      firstname: params[:user][:firstname],
-      lastname: params[:user][:lastname],
-      admin: params[:user][:admin]
-      )
+    if @user.update_attributes(user_params)
       redirect_to admin_users_path
     else
       render :edit
@@ -43,5 +38,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def delete
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :firstname, :lastname, :password, :password_confirmation, :admin)
   end
 end
