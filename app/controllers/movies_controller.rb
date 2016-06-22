@@ -1,6 +1,5 @@
 class MoviesController < ApplicationController
   def index
-
     if params[:title]
       if params[:duration] == "1"
         @movies = Movie.where("title like ? AND director like ?",
