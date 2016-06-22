@@ -1,5 +1,7 @@
 <%= paginate @users %>
 
+<button name="create"></button>
+
 <table border="1">
   <tr>
     <th>
@@ -12,7 +14,7 @@
     Admin
     </th>
   </tr>
-    <% @users.each do |user| %>
+  <% @users.each do |user| %>
     <tr>
       <td>
         <b><%= user.full_name %></b>
