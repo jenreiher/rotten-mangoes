@@ -33,6 +33,9 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rmagick'
 gem 'carrierwave'
 
+# Pagination
+gem 'kaminari'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

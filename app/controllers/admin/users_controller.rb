@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_filter :restrict_non_admins
 
   def index
-    @users = User.all
+    @users = User.all.page(params[:page]).per(5)
   end
 
   def show
