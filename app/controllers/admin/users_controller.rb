@@ -1,4 +1,7 @@
 class Admin::UsersController < ApplicationController
+
+  before_filter :restrict_non_admins
+
   def index
     @users = User.all
   end
