@@ -1,7 +1,12 @@
 <%= paginate @users %>
 
+<%= link_to "Add User", admin_users_new_path %>
+
 <table border="1">
   <tr>
+    <th>
+    
+    </th>
     <th>
     Name
     </th>
@@ -12,8 +17,11 @@
     Admin
     </th>
   </tr>
-    <% @users.each do |user| %>
+  <% @users.each do |user| %>
     <tr>
+      <td>
+        <%= link_to "Edit", edit_admin_user_path(user) %>
+      </td>
       <td>
         <b><%= user.full_name %></b>
       </td>

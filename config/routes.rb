@@ -17,6 +17,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+  get 'users/update'
+  end
+
+  namespace :admin do
   get 'users/delete'
   end
 
