@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def restrict_non_admins
     unless admin?
-      flash[:alert] = "You must be loggen in asan admin to access this area."
+      flash[:alert] = "You must be loggen in as an admin to access that area."
       redirect_to movies_path
     end
   end
