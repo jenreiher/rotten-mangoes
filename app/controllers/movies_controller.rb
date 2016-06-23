@@ -50,6 +50,6 @@ class MoviesController < ApplicationController
   end
 
   def search_params
-    params.permit(:title, :director, :duration)
+    params.permit(:query, :duration)
   end
 end
