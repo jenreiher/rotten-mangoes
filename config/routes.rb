@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-  get 'users/delete'
+  delete 'users/destroy'
   end
 
 

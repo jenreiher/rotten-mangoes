@@ -2,6 +2,7 @@
 
 <%= link_to "Add User", admin_users_new_path %>
 
+
 <table border="1">
   <tr>
     <th>
@@ -20,7 +21,9 @@
   <% @users.each do |user| %>
     <tr>
       <td>
-        <%= link_to "Edit", edit_admin_user_path(user) %>
+        <%= link_to "Edit", edit_admin_user_path(user) %> |
+        <%= button_to "Delete", {:controller => :users,
+      :action => 'destroy', :id => user.id }, :method => :delete %>
       </td>
       <td>
         <b><%= user.full_name %></b>
