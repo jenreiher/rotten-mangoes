@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
         "%#{params[:title]}%", "%#{params[:director]}%", 120)
       end
     else
-      @movies = Movie.all
+      @movies = Movie.all.order(:title)
     end
   end
 
