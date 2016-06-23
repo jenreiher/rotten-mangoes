@@ -38,13 +38,13 @@ class Movie < ActiveRecord::Base
         @movies = Movie.where("title like ? OR director like ?",
           "%#{params[:query]}%", "%#{params[:query]}%")
       elsif params[:duration] == "2"
-        @movies = Movie.where("title like ? OR director like ? AND runtime_in_minutes < ?", 
+        @movies = Movie.where("(title like ? OR director like ?) AND runtime_in_minutes < ?", 
         "%#{params[:query]}%", "%#{params[:query]}%", 90)
       elsif params[:duration] == "3"
-        @movies = Movie.where("title like ? OR director like ? AND runtime_in_minutes BETWEEN ? AND ?", 
+        @movies = Movie.where("(title like ? OR director like ?) AND runtime_in_minutes BETWEEN ? AND ?", 
         "%#{params[:query]}%", "%#{params[:query]}%", 90, 120)
       elsif params[:duration] == "4"
-        @movies = Movie.where("title like ? OR director like ? AND runtime_in_minutes > ?", 
+        @movies = Movie.where("(title like ? OR director like ?) AND runtime_in_minutes > ?", 
         "%#{params[:query]}%", "%#{params[:query]}%", 120)
       end
     else
