@@ -1,5 +1,10 @@
 class Movie < ActiveRecord::Base
 
+  scope :search_query, ->(params) { where("title like ? OR director like ?", "%#{params[:query]}%", "%#{params[:query]}%") }
+  scope :duration_short, -> { where("runtime_in_minutes < 90") }
+  scope :duration_medium, -> { where("runtime_in_minutes BETWEEN 90 AND 120") }
+  scope :duration_long, -> { where("runtime_in_minutes > 120") }
+
   mount_uploader :poster_image, PosterImageUploader
 
   has_many :reviews
@@ -35,17 +40,14 @@ class Movie < ActiveRecord::Base
   def self.search(params)
     if params[:query]
       if params[:duration] == "1"
-        @movies = Movie.where("title like ? OR director like ?",
-          "%#{params[:query]}%", "%#{params[:query]}%")
+        @movies = Movie.search_query(params)
+        #@movies = Movie.where("title like ? OR director like ?", "%#{params[:query]}%", "%#{params[:query]}%")
       elsif params[:duration] == "2"
-        @movies = Movie.where("(title like ? OR director like ?) AND runtime_in_minutes < ?", 
-        "%#{params[:query]}%", "%#{params[:query]}%", 90)
+        @movies = Movie.search_query(params).duration_short
       elsif params[:duration] == "3"
-        @movies = Movie.where("(title like ? OR director like ?) AND runtime_in_minutes BETWEEN ? AND ?", 
-        "%#{params[:query]}%", "%#{params[:query]}%", 90, 120)
+        @movies = Movie.search_query(params).duration_medium
       elsif params[:duration] == "4"
-        @movies = Movie.where("(title like ? OR director like ?) AND runtime_in_minutes > ?", 
-        "%#{params[:query]}%", "%#{params[:query]}%", 120)
+        @movies = Movie.search_query(params).duration_long
       end
     else
       @movies = Movie.all
