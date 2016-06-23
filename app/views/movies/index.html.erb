@@ -12,8 +12,6 @@
   <%= submit_tag("Search") %>
 <% end %>
 
-
-
 <hr>
 <% @movies.each do |movie| %>
   <%= link_to image_tag(movie.poster_image_url(:thumb)), movie_path(movie) %>
