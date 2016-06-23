@@ -33,19 +33,19 @@ class Movie < ActiveRecord::Base
   end
 
   def self.search(params)
-    if params[:title]
+    if params[:query]
       if params[:duration] == "1"
-        @movies = Movie.where("title like ? AND director like ?",
-          "%#{params[:title]}%", "%#{params[:director]}%")
+        @movies = Movie.where("title like ? OR director like ?",
+          "%#{params[:query]}%", "%#{params[:query]}%")
       elsif params[:duration] == "2"
-        @movies = Movie.where("title like ? AND director like ? AND runtime_in_minutes < ?", 
-        "%#{params[:title]}%", "%#{params[:director]}%", 90)
+        @movies = Movie.where("title like ? OR director like ? AND runtime_in_minutes < ?", 
+        "%#{params[:query]}%", "%#{params[:query]}%", 90)
       elsif params[:duration] == "3"
-        @movies = Movie.where("title like ? AND director like ? AND runtime_in_minutes BETWEEN ? AND ?", 
-        "%#{params[:title]}%", "%#{params[:director]}%", 90, 120)
+        @movies = Movie.where("title like ? OR director like ? AND runtime_in_minutes BETWEEN ? AND ?", 
+        "%#{params[:query]}%", "%#{params[:query]}%", 90, 120)
       elsif params[:duration] == "4"
-        @movies = Movie.where("title like ? AND director like ? AND runtime_in_minutes > ?", 
-        "%#{params[:title]}%", "%#{params[:director]}%", 120)
+        @movies = Movie.where("title like ? OR director like ? AND runtime_in_minutes > ?", 
+        "%#{params[:query]}%", "%#{params[:query]}%", 120)
       end
     else
       @movies = Movie.all
@@ -59,7 +59,5 @@ class Movie < ActiveRecord::Base
       errors.add(:release_date, "should be in the past") if release_date > Date.today
     end 
   end
-
-
 
 end
