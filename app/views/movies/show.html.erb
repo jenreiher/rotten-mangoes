@@ -1,19 +1,12 @@
-<%= link_to "Back to all movies", movies_path %><br/>
+<%= link_to "<< all movies", movies_path, class: 'btn btn-default' %>
 
-<div class="media"><!-- start of movies list -->
-  <div class="media-left"><!-- start of movies image -->
-    <%= link_to image_tag(@movie.poster_image_url(:thumb)), movie_path(@movie) %>
-  </div><!-- end of movies image -->
-  <div class="media-body">
-    <h2><%= @movie.title %> (<%= link_to "edit", edit_movie_path(@movie) %>, <%= link_to "delete", movie_path(@movie), method: :delete, data: {confirm: "You sure?"} %>)</h2>
-    <h3><%= formatted_date(@movie.release_date) %></h3>
-    <h4>Dir. <%= @movie.director %> | <%= @movie.runtime_in_minutes %> minutes</h4>
-    <p><%= @movie.description %></p>
-    <h3><b>Average rating:</b> <%= @movie.review_average %>/10</h3>
-  </div>
-  <hr>
-</div><!-- end of movies list -->
+<hr>
 
+<%= render partial: 'movie', object: @movie %>
+
+<%= link_to "edit", edit_movie_path(@movie), class: 'btn btn-primary btn-sm' %> 
+<%= link_to "delete", movie_path(@movie), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: "You sure?"} %>
+<hr>
 
 <h3>Reviews of <em><%= @movie.title %></em></h3>
 <% if current_user %>
