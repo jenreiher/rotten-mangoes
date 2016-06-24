@@ -12,29 +12,29 @@
 
   <div>
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
   <div>
     <%= f.label :release_date %><br>
-    <%= f.date_field :release_date %>
+    <%= f.date_field :release_date, class: "form-control" %>
   </div>
   <div>
     <%= f.label :director %><br>
-    <%= f.text_field :director %>
+    <%= f.text_field :director, class: "form-control" %>
   </div>
   <div>
     <%= f.label :runtime_in_minutes %><br>
-    <%= f.number_field :runtime_in_minutes %>
+    <%= f.number_field :runtime_in_minutes, class: "form-control" %>
   </div>
   <div>
     <%= f.label :poster_image %><br>
-    <%= f.file_field :poster_image %><br>
+    <%= f.file_field :poster_image , class: "form-control"%><br>
   </div>
   <div>
     <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, class: "form-control" %>
   </div>
   <div>
-    <%= f.submit "Submit" %> 
+    <%= f.submit "Submit", class: "btn btn-default" %> 
   </div>
 <% end %>
