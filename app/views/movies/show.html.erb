@@ -2,13 +2,10 @@
 
 <hr>
 
-<%= link_to "edit", edit_movie_path(@movie), class: 'btn btn-primary btn-sm' %> 
-<%= link_to "delete", movie_path(@movie), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: "You sure?"} %>
-<br/>
-
-
 <%= render partial: 'movie', object: @movie %>
 
+<%= link_to "edit", edit_movie_path(@movie), class: 'btn btn-primary btn-sm' %> 
+<%= link_to "delete", movie_path(@movie), method: :delete, class: 'btn btn-danger btn-sm', data: {confirm: "You sure?"} %>
 <hr>
 
 <h3>Reviews of <em><%= @movie.title %></em></h3>
