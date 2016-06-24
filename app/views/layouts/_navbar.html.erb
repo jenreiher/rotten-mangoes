@@ -16,10 +16,9 @@
       <%= button_to "Submit a movie!", {:controller => :movies, :action => 'new'}, :method => :get, class: 'btn btn-success navbar-btn navbar-left' %>
 
       <%= form_tag movies_path, method: "GET", class: "navbar-form navbar-right" do %>
-        <%= text_field_tag :query, nil, placeholder: "Search", class: "form-control" %>
-        <%= select_tag(:duration, options_for_select(
-        [['Select Duration', 1],['Under 90 minutes', 2], ['Between 90 and 120 minutes', 3],  ['Over 120 minutes', 4]]
-        ), {class: "form-control"}) %>
+        <%= text_field_tag :query, params[:query], placeholder: "Search", class: "form-control" %>
+        <!-- options_for_select is pulling from the value on the movies controller -->
+        <%= select_tag(:duration, options_for_select(@duration_selections, params[:duration]), {class: "form-control"}) %>
         <%= submit_tag("Search", class: "btn btn-default") %>
       <% end %>
     </div><!-- /.navbar-collapse -->

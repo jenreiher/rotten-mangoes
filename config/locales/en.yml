@@ -20,4 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  movies:
+    duration_ranges:
+      blank: ""
+      short: "Under 90 minutes"
+      medium: "Between 90 and 120 minutes"
+      long: "Over 120 minutes"
