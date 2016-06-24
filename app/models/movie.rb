@@ -1,5 +1,13 @@
 class Movie < ActiveRecord::Base
 
+  # the constant that holds the start and end times of the movie ranges
+  DURATION_RANGES = {
+    "blank" => [0, 8 * 60],
+    "short" => [0, 90],
+    "medium" => [90, 120],
+    "long" => [120, 8 * 60]
+  }.freeze
+
   mount_uploader :poster_image, PosterImageUploader
 
   has_many :reviews
@@ -24,6 +32,10 @@ class Movie < ActiveRecord::Base
 
   validate :release_date_is_in_the_past
 
+  def self.movie_duration
+    DURATION_RANGES
+  end
+
   def review_average
     if reviews.size > 0
       reviews.sum(:rating_out_of_ten)/reviews.size
@@ -32,23 +44,18 @@ class Movie < ActiveRecord::Base
     end
   end
 
-  def self.search(params)
-    if params[:title]
-      if params[:duration] == "1"
-        @movies = Movie.where("title like ? AND director like ?",
-          "%#{params[:title]}%", "%#{params[:director]}%")
-      elsif params[:duration] == "2"
-        @movies = Movie.where("title like ? AND director like ? AND runtime_in_minutes < ?", 
-        "%#{params[:title]}%", "%#{params[:director]}%", 90)
-      elsif params[:duration] == "3"
-        @movies = Movie.where("title like ? AND director like ? AND runtime_in_minutes BETWEEN ? AND ?", 
-        "%#{params[:title]}%", "%#{params[:director]}%", 90, 120)
-      elsif params[:duration] == "4"
-        @movies = Movie.where("title like ? AND director like ? AND runtime_in_minutes > ?", 
-        "%#{params[:title]}%", "%#{params[:director]}%", 120)
-      end
+  scope :by_title_or_director, ->(query_string) do
+    where("title like :query OR director like :query", query: "%#{query_string}%")
+  end
+
+  scope :by_duration, -> (duration) do
+    # checks if the duration from the query string is found in the 
+    if DURATION_RANGES[duration]
+      start, stop = DURATION_RANGES[duration]
+      where("runtime_in_minutes > #{start} AND runtime_in_minutes < #{stop}")
     else
-      @movies = Movie.all
+      # raises an exception if the duration is not in the constant
+      raise ArgumentError, "Duration #{duration} is not a defined range"
     end
   end
 
@@ -59,7 +66,5 @@ class Movie < ActiveRecord::Base
       errors.add(:release_date, "should be in the past") if release_date > Date.today
     end 
   end
-
-
 
 end

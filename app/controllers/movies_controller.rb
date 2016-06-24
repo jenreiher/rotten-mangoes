@@ -1,6 +1,8 @@
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.search(search_params)
+    @movies = Movie.by_title_or_director(params[:query])
+    # only checks the duration if there is a duration in the params
+    @movies = @movies.by_duration(params[:duration]) if params[:duration]
   end
 
   def show
@@ -50,6 +52,6 @@ class MoviesController < ApplicationController
   end
 
   def search_params
-    params.permit(:title, :director, :duration)
+    params.permit(:query, :duration)
   end
 end

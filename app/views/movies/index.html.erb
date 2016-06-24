@@ -1,17 +1,4 @@
-
 <% @movies.each do |movie| %>
-  <div class="row">
-    <div class="col-md-3">
-      <%= link_to image_tag(movie.poster_image_url(:thumb)), movie_path(movie), class: 'media-object' %>
-    </div>
-    <div class="col-md-6">
-      <h2><%= link_to movie.title, movie_path(movie), class: 'media-heading' %></h2>
-      <h3><%= formatted_date(movie.release_date) %></h3>
-      <h4>Dir. <%= movie.director %> | <%= movie.runtime_in_minutes %> minutes</h4>
-      <p><%= movie.description %></p>
-      <h3><b>Average rating:</b> <%= movie.review_average %>/10</h3>
-    </div>
-  </div>
-  
+  <%= render partial: 'movie', object: movie %>
   <hr>
 <% end %>
