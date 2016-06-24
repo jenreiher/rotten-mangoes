@@ -3,12 +3,6 @@ class MoviesController < ApplicationController
     @movies = Movie.by_title_or_director(params[:query])
     # only checks the duration if there is a duration in the params
     @movies = @movies.by_duration(params[:duration]) if params[:duration]
-    # duration_selections gets the keys from the constant DURATION_RANGES 
-    # => on the Movie class an dmap over it using the 
-    # => movies.duration_ranges in /config/locales/en.yml
-    @duration_selections = Movie::DURATION_RANGES.keys.map do |key|
-      [I18n.t(key, scope: "movies.duration_ranges"), key]
-    end
   end
 
   def show

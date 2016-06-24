@@ -2,8 +2,19 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_filter :set_durations
+
+  # duration_selections gets the keys from the constant DURATION_RANGES 
+  # => on the Movie class and map over it using the 
+  # => movies.duration_ranges in /config/locales/en.yml
 
   private
+
+  def set_durations
+    @duration_selections = Movie::DURATION_RANGES.keys.map do |key|
+      [I18n.t(key, scope: "movies.duration_ranges"), key]
+    end
+  end
 
   def restrict_access
     if !current_user
