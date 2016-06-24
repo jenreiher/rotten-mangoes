@@ -1,9 +1,12 @@
 class Movie < ActiveRecord::Base
 
-  scope :search_query, ->(params) { where("title like ? OR director like ?", "%#{params[:query]}%", "%#{params[:query]}%") }
-  scope :duration_short, -> { where("runtime_in_minutes < 90") }
-  scope :duration_medium, -> { where("runtime_in_minutes BETWEEN 90 AND 120") }
-  scope :duration_long, -> { where("runtime_in_minutes > 120") }
+  # the constant that holds the start and end times of the movie ranges
+  DURATION_RANGES = {
+    "blank" => [0, 8 * 60],
+    "short" => [0, 90],
+    "medium" => [90, 120],
+    "long" => [120, 8 * 60]
+  }.freeze
 
   mount_uploader :poster_image, PosterImageUploader
 
@@ -37,20 +40,18 @@ class Movie < ActiveRecord::Base
     end
   end
 
-  def self.search(params)
-    if params[:query]
-      if params[:duration] == "1"
-        @movies = Movie.search_query(params)
-        #@movies = Movie.where("title like ? OR director like ?", "%#{params[:query]}%", "%#{params[:query]}%")
-      elsif params[:duration] == "2"
-        @movies = Movie.search_query(params).duration_short
-      elsif params[:duration] == "3"
-        @movies = Movie.search_query(params).duration_medium
-      elsif params[:duration] == "4"
-        @movies = Movie.search_query(params).duration_long
-      end
+  scope :by_title_or_director, ->(query_string) do
+    where("title like :query OR director like :query", query: "%#{query_string}%")
+  end
+
+  scope :by_duration, -> (duration) do
+    # checks if the duration from the query string is found in the 
+    if DURATION_RANGES[duration]
+      start, stop = DURATION_RANGES[duration]
+      where("runtime_in_minutes > #{start} AND runtime_in_minutes < #{stop}")
     else
-      @movies = Movie.all
+      # raises an exception if the duration is not in the constant
+      raise ArgumentError, "Duration #{duration} is not a defined range"
     end
   end
 
