@@ -1,4 +1,6 @@
-<%= link_to "Back to movie", movie_path(@movie) %><br/>
+<%= link_to "<< all movies", movies_path, class: 'btn btn-default' %>
+
+<hr>
 
 <h2>Write a review of <em><%= @movie.title %></em>.</h2>
 
@@ -16,11 +18,11 @@
 
   <div>
     <%= f.label :text %><br>
-    <%= f.text_area "text" %>
+    <%= f.text_area "text", class: "form-control" %>
   </div>
   <div>
     <%= f.label :rating_out_of_ten %><br>
-    <%= f.number_field :rating_out_of_ten %>
+    <%= f.number_field :rating_out_of_ten, class: "form-control" %>
   </div>
-  <div><%= f.submit "Submit" %></div>
+  <div><%= f.submit "Submit", class: "btn btn-default" %></div>
 <% end %>

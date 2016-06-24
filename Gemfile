@@ -28,6 +28,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Sassy CSS
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'autoprefixer-rails'
 
 # File uploading
 gem 'rmagick'
@@ -44,7 +45,7 @@ gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'pry-byebug'
 end
 
 group :development do

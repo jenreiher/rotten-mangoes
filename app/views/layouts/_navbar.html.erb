@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">RottenMangoes</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <%= button_to "Submit a movie!", {:controller => :movies, :action => 'new'}, :method => :get, class: 'btn btn-success navbar-btn navbar-left' %>
+
+      <%= form_tag movies_path, method: "GET", class: "navbar-form navbar-right" do %>
+        <%= text_field_tag :query, params[:query], placeholder: "Search", class: "form-control" %>
+        <!-- options_for_select is pulling from the value on the movies controller -->
+        <%= select_tag(:duration, options_for_select(@duration_selections, params[:duration]), {class: "form-control"}) %>
+        <%= submit_tag("Search", class: "btn btn-default") %>
+      <% end %>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>

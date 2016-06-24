@@ -1,22 +1,8 @@
 class MoviesController < ApplicationController
   def index
-    if params[:title]
-      if params[:duration] == "1"
-        @movies = Movie.where("title like ? AND director like ?",
-          "%#{params[:title]}%", "%#{params[:director]}%")
-      elsif params[:duration] == "2"
-        @movies = Movie.where("title like ? AND director like ? AND runtime_in_minutes < ?", 
-        "%#{params[:title]}%", "%#{params[:director]}%", 90)
-      elsif params[:duration] == "3"
-        @movies = Movie.where("title like ? AND director like ? AND runtime_in_minutes BETWEEN ? AND ?", 
-        "%#{params[:title]}%", "%#{params[:director]}%", 90, 120)
-      elsif params[:duration] == "4"
-        @movies = Movie.where("title like ? AND director like ? AND runtime_in_minutes > ?", 
-        "%#{params[:title]}%", "%#{params[:director]}%", 120)
-      end
-    else
-      @movies = Movie.all
-    end
+    @movies = Movie.by_title_or_director(params[:query])
+    # only checks the duration if there is a duration in the params
+    @movies = @movies.by_duration(params[:duration]) if params[:duration]
   end
 
   def show
@@ -66,6 +52,6 @@ class MoviesController < ApplicationController
   end
 
   def search_params
-    params.permit(:title, :director, :duration)
+    params.permit(:query, :duration)
   end
 end
